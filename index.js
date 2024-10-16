@@ -38,18 +38,31 @@ app.post("/add-product", async (req, resp) => {
     resp.send(result);
 })
 
-app.get("/products", async (req, resp)=>{
+app.get("/products", async (req, resp) => {
     let products = await Product.find();
-    if(products.length>0){
+    if (products.length > 0) {
         resp.send(products)
-    }else{
-        resp.send({result: "No Products Found."})
+    } else {
+        resp.send({ result: "No Products Found." })
     }
 })
 
-app.delete("/product/:id", async (req, resp)=>{    
-    const result = await Product.deleteOne({_id:req.params.id})
+app.delete("/product/:id", async (req, resp) => {
+    const result = await Product.deleteOne({ _id: req.params.id })
     resp.send(result);
 });
+
+app.get("/product/:id", async (req, resp) => {
+    let result = await Product.find({ _id: req.params.id });
+    if(result.length > 0){
+        resp.send(result);
+    }else{
+        resp.send("Record not found")
+    }
+});
+
+app.put("/update-product", (req, resp)=>{
+    resp.send("Badhiya kaam ho ra")
+})
 
 app.listen("5000");
