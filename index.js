@@ -53,7 +53,7 @@ app.delete("/product/:id", async (req, resp) => {
 });
 
 app.get("/product/:id", async (req, resp) => {
-    let result = await Product.find({ _id: req.params.id });
+    let result = await Product.findOne({ _id: req.params.id });
     if(result.length > 0){
         resp.send(result);
     }else{
@@ -61,8 +61,14 @@ app.get("/product/:id", async (req, resp) => {
     }
 });
 
-app.put("/update-product", (req, resp)=>{
-    resp.send("Badhiya kaam ho ra")
+app.put("/product/:id", async (req, resp)=>{
+    let result = await Product.updateOne(
+        {_id: req.params.id},
+        {
+            $set : req.body
+        }
+    )
+    resp.send(result);
 })
 
 app.listen("5000");
