@@ -53,7 +53,7 @@ app.delete("/product/:id", async (req, resp) => {
 });
 
 app.get("/product/:id", async (req, resp) => {
-    let result = await Product.findOne({ _id: req.params.id });
+    let result = await Product.find({ _id: req.params.id });
     if(result.length > 0){
         resp.send(result);
     }else{
